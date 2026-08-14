@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: finance
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: Gui1809!
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-plataform: org.hibernate.dialect.PostgresSQLDialect
+    hibernate:
+      ddl-auto: update

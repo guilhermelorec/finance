@@ -2,12 +2,11 @@ package koda.dev.br.finance.controller;
 
 import koda.dev.br.finance.model.Usuario;
 import koda.dev.br.finance.repository.UsuarioRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+
+import static java.lang.Math.random;
+
 @RestController
 @RequestMapping("/usuario")
 
@@ -21,13 +20,22 @@ public class UsuarioController {
 
     @PostMapping
     public Usuario salvar(@RequestBody Usuario usuario){
-        System.out.println("usuario salvo" + usuario);
-
-        var id = UUID.randomUUID().toString();
-        usuario.setId(id);
-
-        usuarioRepository.save(usuario);
-        return usuario;
+        return usuarioRepository.save(usuario);
     }
 
+    @GetMapping("{id}")
+    public Usuario BuscarPorId(@PathVariable("id") Integer id){
+        return usuarioRepository.findById(id).orElse(null);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Integer id){
+        usuarioRepository.deleteById(id);
+    }
+
+    @PutMapping("{id}")
+    public void update(@PathVariable("id") Integer id, @RequestBody Usuario usuario){
+        usuario.setId(id);
+        usuarioRepository.save(usuario);
+    }
 }
